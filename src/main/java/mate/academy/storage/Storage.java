@@ -12,32 +12,28 @@ public class Storage {
     public static final List<Order> orders = new ArrayList<>();
     public static final List<ShoppingCart> shoppingCarts = new ArrayList<>();
     public static final List<User> users = new ArrayList<>();
-    private static long productId = 0;
-    private static long orderId = 0;
-    private static long shoppingCartId = 0;
-    private static long userId = 0;
+    private static Long productId = 0L;
+    private static Long orderId = 0L;
+    private static Long shoppingCartId = 0L;
+    private static Long userId = 0L;
 
     public static void addProduct(Product product) {
-        productId++;
-        product.setId(productId);
+        product.setId(++productId);
         products.add(product);
     }
 
     public static void addOrder(Order order) {
-        orderId++;
-        order.setId(orderId);
+        order.setId(++orderId);
         orders.add(order);
     }
 
     public static void addShoppingCart(ShoppingCart shoppingCart) {
-        shoppingCartId++;
-        shoppingCart.setId(shoppingCartId);
+        shoppingCart.setId(++shoppingCartId);
         shoppingCarts.add(shoppingCart);
     }
 
     public static void addUser(User user) {
-        userId++;
-        user.setId(userId);
+        user.setId(++userId);
         users.add(user);
     }
 }
