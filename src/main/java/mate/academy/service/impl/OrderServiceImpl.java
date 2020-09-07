@@ -1,6 +1,5 @@
 package mate.academy.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import mate.academy.dao.OrderDao;
 import mate.academy.lb.Inject;
@@ -13,14 +12,14 @@ import mate.academy.service.OrderService;
 public class OrderServiceImpl implements OrderService {
 
     @Inject
-    OrderDao orderDao;
+    private OrderDao orderDao;
 
     @Override
     public Order completeOrder(ShoppingCart shoppingCart) {
-        Order order = orderDao.completeOrder(shoppingCart);
-        order.setProducts(new ArrayList<>(shoppingCart.getProducts()));
-        shoppingCart.getProducts().removeAll(shoppingCart.getProducts());
-        return order;
+        Order order = new Order(shoppingCart.getUserId());
+        order.setProducts(List.copyOf(shoppingCart.getProducts()));
+        shoppingCart.getProducts().clear();
+        return orderDao.create(order);
     }
 
     @Override

@@ -3,11 +3,12 @@ package mate.academy.dao;
 import java.util.List;
 import java.util.Optional;
 import mate.academy.model.Order;
-import mate.academy.model.ShoppingCart;
 
 public interface OrderDao {
 
-    Order completeOrder(ShoppingCart shoppingCart);
+    Order create(Order order);
+
+    Order update(Order order);
 
     List<Order> getUserOrders(Long userId);
 
