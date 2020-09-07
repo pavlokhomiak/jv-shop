@@ -31,8 +31,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public boolean deleteProduct(ShoppingCart shoppingCart, Product product) {
-        boolean delete = shoppingCart.getProducts()
-                .removeIf(p -> p.getId().equals(product.getId()));
+        boolean delete = shoppingCart.getProducts().remove(product);
         shoppingCartDao.update(shoppingCart);
         return delete;
     }
@@ -40,6 +39,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public void clear(ShoppingCart shoppingCart) {
         shoppingCart.getProducts().clear();
+        shoppingCartDao.update(shoppingCart);
     }
 
     @Override
