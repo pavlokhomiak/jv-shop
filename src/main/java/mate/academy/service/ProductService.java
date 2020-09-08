@@ -3,7 +3,8 @@ package mate.academy.service;
 import java.util.List;
 import mate.academy.model.Product;
 
-public interface ProductService {
+public interface ProductService extends GenericService<Product, Long> {
+
     Product create(Product product);
 
     Product get(Long id);

@@ -3,7 +3,8 @@ package mate.academy.service;
 import java.util.List;
 import mate.academy.model.User;
 
-public interface UserService {
+public interface UserService extends GenericService<User, Long> {
+
     User create(User user);
 
     User get(Long id);
