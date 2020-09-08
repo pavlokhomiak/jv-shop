@@ -4,7 +4,8 @@ import java.util.List;
 import mate.academy.model.Order;
 import mate.academy.model.ShoppingCart;
 
-public interface OrderService {
+public interface OrderService extends GenericService<Order, Long> {
+
     Order completeOrder(ShoppingCart shoppingCart);
 
     List<Order> getUserOrders(Long userId);

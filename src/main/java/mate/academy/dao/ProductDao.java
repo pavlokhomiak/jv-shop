@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import mate.academy.model.Product;
 
-public interface ProductDao {
+public interface ProductDao extends GenericDao<Product, Long> {
+
     Product create(Product product);
 
     Optional<Product> get(Long id);
