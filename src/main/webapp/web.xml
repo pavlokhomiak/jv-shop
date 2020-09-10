@@ -76,4 +76,22 @@
         <url-pattern>/shopping-cart/products/get</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>removeProductShoppingCart</servlet-name>
+        <servlet-class>mate.academy.controllers.DeleteProductFromShoppingCartController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>removeProductShoppingCart</servlet-name>
+        <url-pattern>/shopping-cart/products/remove</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>completeOrder</servlet-name>
+        <servlet-class>mate.academy.controllers.CompleteOrderController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>completeOrder</servlet-name>
+        <url-pattern>/order/complete</url-pattern>
+    </servlet-mapping>
+
 </web-app>
