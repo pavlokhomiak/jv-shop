@@ -32,15 +32,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>inject</servlet-name>
-        <servlet-class>mate.academy.controllers.InjectDataController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>inject</servlet-name>
-        <url-pattern>/injectData</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>delete</servlet-name>
         <servlet-class>mate.academy.controllers.DeleteUserController</servlet-class>
     </servlet>
@@ -51,11 +42,11 @@
 
     <servlet>
         <servlet-name>allProducts</servlet-name>
-        <servlet-class>mate.academy.controllers.ProductController</servlet-class>
+        <servlet-class>mate.academy.controllers.GetProductController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>allProducts</servlet-name>
-        <url-pattern>/allProducts</url-pattern>
+        <url-pattern>/products/all</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -64,16 +55,16 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>addProduct</servlet-name>
-        <url-pattern>/addProduct</url-pattern>
+        <url-pattern>/products/add</url-pattern>
     </servlet-mapping>
 
     <servlet>
         <servlet-name>shoppingCart</servlet-name>
-        <servlet-class>mate.academy.controllers.ShoppingCartController</servlet-class>
+        <servlet-class>mate.academy.controllers.AddProductToShoppingCartController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>shoppingCart</servlet-name>
-        <url-pattern>/shoppingCart</url-pattern>
+        <url-pattern>/shopping-carts/products/add</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -82,7 +73,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>getShoppingCart</servlet-name>
-        <url-pattern>/getShoppingCart</url-pattern>
+        <url-pattern>/shopping-cart/products/get</url-pattern>
     </servlet-mapping>
 
 </web-app>

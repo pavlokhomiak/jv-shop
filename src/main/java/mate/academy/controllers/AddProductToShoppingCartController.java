@@ -11,7 +11,7 @@ import mate.academy.model.ShoppingCart;
 import mate.academy.service.ProductService;
 import mate.academy.service.ShoppingCartService;
 
-public class ShoppingCartController extends HttpServlet {
+public class AddProductToShoppingCartController extends HttpServlet {
     private static final Long USER_ID = 1L;
 
     private static final Injector injector = Injector.getInstance("mate.academy");
@@ -28,6 +28,6 @@ public class ShoppingCartController extends HttpServlet {
         Long id = Long.parseLong(idParameter);
         Product product = productService.get(id);
         shoppingCartService.addProduct(shoppingCart, product);
-        resp.sendRedirect(req.getContextPath() + "/allProducts");
+        resp.sendRedirect(req.getContextPath() + "/products/all");
     }
 }

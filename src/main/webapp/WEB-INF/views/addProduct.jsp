@@ -8,7 +8,7 @@
 
 <h4 style="color: red">${message}</h4>
 
-<form method="post" action="${pageContext.request.contextPath}/addProduct">
+<form method="post" action="${pageContext.request.contextPath}/products/add">
     Name: <input type="text" name="name" required placeholder="Product name">
     <br/>Price: <input type="number" name="price" required placeholder="Product price">
 

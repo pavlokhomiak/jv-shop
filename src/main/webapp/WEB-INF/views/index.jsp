@@ -10,13 +10,11 @@
 
 <br/><a href="${pageContext.request.contextPath}/users/all">Show all users</a>
 
-<br/><a href="${pageContext.request.contextPath}/addProduct">Add product</a>
+<br/><a href="${pageContext.request.contextPath}/products/add">Add product</a>
 
-<br/><a href="${pageContext.request.contextPath}/allProducts">Show all products</a>
+<br/><a href="${pageContext.request.contextPath}/products/all">Show all products</a>
 
-<br/><a href="${pageContext.request.contextPath}/getShoppingCart">Show shopping cart</a>
-
-<br/><a href="${pageContext.request.contextPath}/injectData">Inject test data into DB</a>
+<br/><a href="${pageContext.request.contextPath}/shopping-cart/products/get">Show shopping cart</a>
 
 </body>
 </html>
