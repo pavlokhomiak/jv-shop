@@ -3,8 +3,7 @@ package mate.academy.service;
 import mate.academy.model.Product;
 import mate.academy.model.ShoppingCart;
 
-public interface ShoppingCartService {
-    ShoppingCart create(ShoppingCart shoppingCart);
+public interface ShoppingCartService extends GenericService<ShoppingCart, Long> {
 
     ShoppingCart addProduct(ShoppingCart shoppingCart, Product product);
 
