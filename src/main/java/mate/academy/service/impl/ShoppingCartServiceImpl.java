@@ -1,6 +1,5 @@
 package mate.academy.service.impl;
 
-import java.util.List;
 import mate.academy.dao.ProductDao;
 import mate.academy.dao.ShoppingCartDao;
 import mate.academy.lb.Inject;
@@ -21,21 +20,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public ShoppingCart create(ShoppingCart shoppingCart) {
         return shoppingCartDao.create(shoppingCart);
-    }
-
-    @Override
-    public ShoppingCart get(Long id) {
-        return shoppingCartDao.get(id).get();
-    }
-
-    @Override
-    public List<ShoppingCart> getAll() {
-        return shoppingCartDao.getAll();
-    }
-
-    @Override
-    public ShoppingCart update(ShoppingCart shoppingCart) {
-        return shoppingCartDao.update(shoppingCart);
     }
 
     @Override
@@ -64,12 +48,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public boolean delete(Long id) {
-        return shoppingCartDao.delete(id);
-    }
-
-    @Override
     public boolean delete(ShoppingCart shoppingCart) {
-        return shoppingCartDao.delete(shoppingCart.getId());
+        return shoppingCartDao.delete(shoppingCart);
     }
 }
