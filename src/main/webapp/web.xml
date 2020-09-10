@@ -94,4 +94,40 @@
         <url-pattern>/order/complete</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>allOrders</servlet-name>
+        <servlet-class>mate.academy.controllers.GetOrdersController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>allOrders</servlet-name>
+        <url-pattern>/order/all</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>orderDetail</servlet-name>
+        <servlet-class>mate.academy.controllers.GetOrderDetails</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>orderDetail</servlet-name>
+        <url-pattern>/order/detail</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ordersAllAdmin</servlet-name>
+        <servlet-class>mate.academy.controllers.GetOrdersAdminController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ordersAllAdmin</servlet-name>
+        <url-pattern>/order/all/admin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>orderRemove</servlet-name>
+        <servlet-class>mate.academy.controllers.DeleteOrderController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>orderRemove</servlet-name>
+        <url-pattern>/order/remove</url-pattern>
+    </servlet-mapping>
+
 </web-app>
