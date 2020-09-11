@@ -14,6 +14,8 @@
 
 <br/><a href="${pageContext.request.contextPath}/products/all">Products</a>
 
+<br/><a href="${pageContext.request.contextPath}/products/all/admin">Products admin</a>
+
 <br/><a href="${pageContext.request.contextPath}/shopping-cart/products/get">Shopping cart</a>
 
 <br/><a href="${pageContext.request.contextPath}/order/all">Orders</a>

@@ -1,16 +1,15 @@
 package mate.academy.controllers;
 
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import mate.academy.lb.Injector;
 import mate.academy.model.Product;
 import mate.academy.model.ShoppingCart;
 import mate.academy.service.ProductService;
 import mate.academy.service.ShoppingCartService;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 public class DeleteProductFromShoppingCartController extends HttpServlet {
     private static final Long USER_ID = 1L;

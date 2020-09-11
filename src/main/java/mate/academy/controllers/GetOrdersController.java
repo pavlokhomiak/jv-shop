@@ -1,16 +1,14 @@
 package mate.academy.controllers;
 
-import mate.academy.lb.Injector;
-import mate.academy.model.Order;
-import mate.academy.service.OrderService;
-import mate.academy.service.ShoppingCartService;
-
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mate.academy.lb.Injector;
+import mate.academy.model.Order;
+import mate.academy.service.OrderService;
 
 public class GetOrdersController extends HttpServlet {
     private static final Long USER_ID = 1L;

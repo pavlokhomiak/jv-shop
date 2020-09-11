@@ -130,4 +130,22 @@
         <url-pattern>/order/remove</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>allProductsAdmin</servlet-name>
+        <servlet-class>mate.academy.controllers.GetProductAdminController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>allProductsAdmin</servlet-name>
+        <url-pattern>/products/all/admin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ProductDelete</servlet-name>
+        <servlet-class>mate.academy.controllers.DeleteProductController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProductDelete</servlet-name>
+        <url-pattern>/products/delete</url-pattern>
+    </servlet-mapping>
+
 </web-app>
