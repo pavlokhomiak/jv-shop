@@ -1,4 +1,4 @@
-package mate.academy.controllers;
+package mate.academy.controllers.orders;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

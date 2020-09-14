@@ -1,4 +1,4 @@
-package mate.academy.controllers;
+package mate.academy.controllers.products;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,7 +10,7 @@ import mate.academy.lb.Injector;
 import mate.academy.model.Product;
 import mate.academy.service.ProductService;
 
-public class GetProductAdminController extends HttpServlet {
+public class GetProductController extends HttpServlet {
     private static final Injector injector = Injector.getInstance("mate.academy");
     private final ProductService productService =
             (ProductService) injector.getInstance(ProductService.class);
@@ -18,8 +18,8 @@ public class GetProductAdminController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        List<Product> productList = productService.getAll();
-        req.setAttribute("products", productList);
-        req.getRequestDispatcher("/WEB-INF/views/allProductsAdmin.jsp").forward(req, resp);
+        List<Product> products = productService.getAll();
+        req.setAttribute("products", products);
+        req.getRequestDispatcher("/WEB-INF/views/allProducts.jsp").forward(req, resp);
     }
 }
