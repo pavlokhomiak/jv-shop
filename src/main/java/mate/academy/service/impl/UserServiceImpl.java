@@ -2,8 +2,6 @@ package mate.academy.service.impl;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
-
 import mate.academy.dao.UserDao;
 import mate.academy.lb.Inject;
 import mate.academy.lb.Service;

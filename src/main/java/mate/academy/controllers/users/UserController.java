@@ -12,6 +12,7 @@ import mate.academy.service.UserService;
 
 public class UserController extends HttpServlet {
     private static final Injector injector = Injector.getInstance("mate.academy");
+    private static final String USER_ID = "user_id";
     private final UserService userService =
             (UserService) injector.getInstance(UserService.class);
 

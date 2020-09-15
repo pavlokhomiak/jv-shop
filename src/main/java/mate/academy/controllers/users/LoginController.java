@@ -1,19 +1,19 @@
 package mate.academy.controllers.users;
 
-import mate.academy.exceptions.AuthenticationException;
-import mate.academy.lb.Injector;
-import mate.academy.model.User;
-import mate.academy.security.AuthenticationService;
-import mate.academy.service.UserService;
-
+import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import javax.servlet.http.HttpSession;
+import mate.academy.exceptions.AuthenticationException;
+import mate.academy.lb.Injector;
+import mate.academy.model.User;
+import mate.academy.security.AuthenticationService;
 
 public class LoginController extends HttpServlet {
     private static final Injector injector = Injector.getInstance("mate.academy");
+    private static final String USER_ID = "user_id";
     private final AuthenticationService authenticationService =
             (AuthenticationService) injector.getInstance(AuthenticationService.class);
 
@@ -31,6 +31,8 @@ public class LoginController extends HttpServlet {
 
         try {
             User user = authenticationService.login(login, password);
+            HttpSession session = req.getSession();
+            session.setAttribute(USER_ID, user.getId());
         } catch (AuthenticationException e) {
             req.setAttribute("message", e.getMessage());
             req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
