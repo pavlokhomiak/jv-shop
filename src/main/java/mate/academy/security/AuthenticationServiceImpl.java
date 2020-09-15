@@ -1,5 +1,6 @@
 package mate.academy.security;
 
+import java.util.Optional;
 import mate.academy.exceptions.AuthenticationException;
 import mate.academy.lb.Inject;
 import mate.academy.lb.Service;
@@ -14,10 +15,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public User login(String login, String password)
             throws AuthenticationException {
-        User userFromDB = userService.findByLogin(login);
+        Optional<User> userFromDB = userService.findByLogin(login);
 
-        if (userFromDB != null && userFromDB.getPassword().equals(password)) {
-            return userFromDB;
+        if (userFromDB.isPresent() && userFromDB.get().getPassword().equals(password)) {
+            return userFromDB.get();
         }
         throw new AuthenticationException("Incorrect username or password");
     }

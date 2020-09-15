@@ -1,7 +1,7 @@
 package mate.academy.service.impl;
 
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Optional;
 import mate.academy.dao.UserDao;
 import mate.academy.lb.Inject;
 import mate.academy.lb.Service;
@@ -39,11 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByLogin(String login) {
-        try {
-            return userDao.findByLogin(login).get();
-        } catch (NoSuchElementException e) {
-            return null;
-        }
+    public Optional<User> findByLogin(String login) {
+        return userDao.findByLogin(login);
     }
 }
