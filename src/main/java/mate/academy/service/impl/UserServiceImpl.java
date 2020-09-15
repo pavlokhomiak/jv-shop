@@ -1,6 +1,9 @@
 package mate.academy.service.impl;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 import mate.academy.dao.UserDao;
 import mate.academy.lb.Inject;
 import mate.academy.lb.Service;
@@ -9,7 +12,6 @@ import mate.academy.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
-
     @Inject
     private UserDao userDao;
 
@@ -36,5 +38,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean delete(Long id) {
         return userDao.delete(id);
+    }
+
+    @Override
+    public User findByLogin(String login) {
+        try {
+            return userDao.findByLogin(login).get();
+        } catch (NoSuchElementException e) {
+            return null;
+        }
     }
 }
