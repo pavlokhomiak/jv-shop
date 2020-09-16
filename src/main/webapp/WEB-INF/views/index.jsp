@@ -8,6 +8,10 @@
 
 <a href="${pageContext.request.contextPath}/registration">Register</a>
 
+<br/><a href="${pageContext.request.contextPath}/login">Login</a>
+
+<br/><a href="${pageContext.request.contextPath}/logout">Logout</a>
+
 <br/><a href="${pageContext.request.contextPath}/users/all">Users</a>
 
 <br/><a href="${pageContext.request.contextPath}/products/add">Add product</a>
@@ -21,8 +25,6 @@
 <br/><a href="${pageContext.request.contextPath}/order/all">Orders</a>
 
 <br/><a href="${pageContext.request.contextPath}/order/all/admin">Orders admin</a>
-
-<%--<button type="button" class="btn btn-secondary">Secondary</button>--%>
 
 </body>
 </html>

@@ -1,8 +1,7 @@
 package mate.academy.model;
 
+import java.util.Set;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 public class User {
@@ -10,7 +9,7 @@ public class User {
     private String name;
     private String login;
     private String password;
-    private List<Role> roles;
+    private Set<Role> roles;
 
     public User(String name, String login, String password) {
         this.name = name;
