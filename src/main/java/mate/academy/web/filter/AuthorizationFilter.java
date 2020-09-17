@@ -30,9 +30,15 @@ public class AuthorizationFilter implements Filter {
         protectedUrls.put("/order/all/admin", List.of(Role.RoleName.ADMIN));
         protectedUrls.put("/products/all/admin", List.of(Role.RoleName.ADMIN));
         protectedUrls.put("/products/add", List.of(Role.RoleName.ADMIN));
+        protectedUrls.put("/order/remove", List.of(Role.RoleName.ADMIN));
+        protectedUrls.put("/products/delete", List.of(Role.RoleName.ADMIN));
+        protectedUrls.put("/users/delete", List.of(Role.RoleName.ADMIN));
+
         protectedUrls.put("/order/all", List.of(Role.RoleName.USER));
         protectedUrls.put("/shopping-carts/products/add", List.of(Role.RoleName.USER));
         protectedUrls.put("/shopping-cart/products/get", List.of(Role.RoleName.USER));
+        protectedUrls.put("/shopping-cart/products/remove", List.of(Role.RoleName.USER));
+        protectedUrls.put("/order/complete", List.of(Role.RoleName.USER));
     }
 
     @Override
@@ -42,7 +48,7 @@ public class AuthorizationFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         String requestedUrl = req.getServletPath();
 
-        if (protectedUrls.get(requestedUrl) == null) {
+        if (!protectedUrls.containsKey(requestedUrl)) {
             filterChain.doFilter(req, resp);
             return;
         }

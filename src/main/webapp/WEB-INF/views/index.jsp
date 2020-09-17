@@ -12,6 +12,8 @@
 
 <br/><a href="${pageContext.request.contextPath}/logout">Logout</a>
 
+<br/><a href="${pageContext.request.contextPath}/inject">Inject data</a>
+
 <br/><a href="${pageContext.request.contextPath}/users/all">Users</a>
 
 <br/><a href="${pageContext.request.contextPath}/products/add">Add product</a>

@@ -23,6 +23,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>injectData</servlet-name>
+        <servlet-class>mate.academy.controllers.InjectDataController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>injectData</servlet-name>
+        <url-pattern>/inject</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>registration</servlet-name>
         <servlet-class>mate.academy.controllers.users.RegistrationController</servlet-class>
     </servlet>
