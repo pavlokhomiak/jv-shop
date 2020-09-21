@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mate.academy.lb.Injector;
-import mate.academy.model.Product;
 import mate.academy.model.Role;
 import mate.academy.model.User;
 import mate.academy.service.ProductService;
@@ -26,16 +25,7 @@ public class InjectDataController extends HttpServlet {
         User admin = new User("admin", "admin", "admin");
         admin.setRoles(Set.of(Role.of("ADMIN")));
         userService.create(admin);
-        Product iphone5 = new Product("Iphone 5", 1500);
-        Product iphone6 = new Product("Iphone 6", 1600);
-        Product iphone7 = new Product("Iphone 7", 1700);
-        Product iphone8 = new Product("Iphone 8", 1800);
-        Product iphone9 = new Product("Iphone 9", 1900);
-        productService.create(iphone5);
-        productService.create(iphone6);
-        productService.create(iphone7);
-        productService.create(iphone8);
-        productService.create(iphone9);
+
         resp.sendRedirect(req.getContextPath() + "/");
     }
 }
