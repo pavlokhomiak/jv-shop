@@ -17,7 +17,7 @@ public class AuthenticationFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        allowedUrl = Set.of("/inject", "/registration", "/", "/login");
+        allowedUrl = Set.of("/inject", "/registration", "/", "/login", "/db");
     }
 
     @Override
