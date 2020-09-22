@@ -18,38 +18,40 @@ import mate.academy.util.ConnectionUtil;
 public class ProductDaoJdbcImpl implements ProductDao {
 
     @Override
-    public Product create(Product element) {
-        String query = "INSERT INTO products (productname, productprice) VALUE (?, ?);";
+    public Product create(Product product) {
+        String query = "INSERT INTO products (product_name, product_price) VALUE (?, ?);";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection
                     .prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, element.getName());
-            statement.setDouble(2, element.getPrice().doubleValue());
+            statement.setString(1, product.getName());
+            statement.setDouble(2, product.getPrice().doubleValue());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
-                element.setId(resultSet.getLong(1));
+                product.setId(resultSet.getLong(1));
             }
         } catch (SQLException e) {
-            throw new DataProcessingException("Data processing exception", e);
+            throw new DataProcessingException("Creating product " + product
+                    + " is failed", e);
         }
-        return element;
+        return product;
     }
 
     @Override
-    public Product update(Product element) {
-        String query = "UPDATE products SET productname = ?, productprice = ? "
+    public Product update(Product product) {
+        String query = "UPDATE products SET product_name = ?, product_price = ? "
                 + "WHERE product_id = ? AND deleted = false;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, element.getName());
-            statement.setDouble(2, element.getPrice().doubleValue());
-            statement.setLong(3, element.getId());
+            statement.setString(1, product.getName());
+            statement.setDouble(2, product.getPrice().doubleValue());
+            statement.setLong(3, product.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new DataProcessingException("Data processing exception", e);
+            throw new DataProcessingException("Updating product " + product
+                     + " is failed", e);
         }
-        return element;
+        return product;
     }
 
     @Override
@@ -63,7 +65,8 @@ public class ProductDaoJdbcImpl implements ProductDao {
                 return Optional.of(retrieveProductFromResultSet(resultSet));
             }
         } catch (SQLException e) {
-            throw new DataProcessingException("Data processing exception", e);
+            throw new DataProcessingException("Getting product with id="
+                    + id + " is failed", e);
         }
         return Optional.empty();
     }
@@ -80,7 +83,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
             }
             return productList;
         } catch (SQLException e) {
-            throw new DataProcessingException("Data processing exception", e);
+            throw new DataProcessingException("Getting products from DB is failed", e);
         }
     }
 
@@ -90,17 +93,17 @@ public class ProductDaoJdbcImpl implements ProductDao {
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setLong(1, id);
-            statement.executeUpdate();
-            return true;
+            return statement.executeUpdate() == 0;
         } catch (SQLException e) {
-            throw new DataProcessingException("Data processing exception", e);
+            throw new DataProcessingException("Deleting product with id="
+                    + id + " is failed", e);
         }
     }
 
     private Product retrieveProductFromResultSet(ResultSet resultSet)
             throws SQLException {
-        String productName = resultSet.getString("productname");
-        double productPrice = resultSet.getDouble("productprice");
+        String productName = resultSet.getString("product_name");
+        double productPrice = resultSet.getDouble("product_price");
         Product product = new Product(productName, productPrice);
         product.setId(resultSet.getLong("product_id"));
         return product;
