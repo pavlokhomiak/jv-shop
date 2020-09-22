@@ -4,11 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 import mate.academy.dao.ProductDao;
-import mate.academy.lb.Dao;
 import mate.academy.model.Product;
 import mate.academy.storage.Storage;
 
-@Dao
 public class ProductDaoImpl implements ProductDao {
 
     @Override
