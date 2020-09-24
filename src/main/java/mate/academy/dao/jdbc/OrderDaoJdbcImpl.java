@@ -34,11 +34,14 @@ public class OrderDaoJdbcImpl implements OrderDao {
             selectUserOrdersStatement.setLong(1, userId);
             ResultSet userResultSet = selectUserOrdersStatement.executeQuery();
             while (userResultSet.next()) {
-                Long orderId = userResultSet.getLong("order_id");
+//                Long orderId = userResultSet.getLong("order_id");
+                Long orderId = userResultSet.getLong(1);
                 PreparedStatement selectOrderProductsStatement = connection.prepareStatement(selectOrdersProducts);
                 selectOrderProductsStatement.setLong(1, orderId);
                 ResultSet resultSet = selectOrderProductsStatement.executeQuery();
-                ordersList.add(retrieveOrderFromResultSet(resultSet));
+                if (resultSet.next()) {
+                    ordersList.add(retrieveOrderFromResultSet(resultSet));
+                }
             }
             return ordersList;
         } catch (SQLException e) {
@@ -57,13 +60,16 @@ public class OrderDaoJdbcImpl implements OrderDao {
             insertOrderQueryStatement.setLong(1, order.getUserId());
             insertOrderQueryStatement.executeUpdate();
             ResultSet resultSet = insertOrderQueryStatement.getGeneratedKeys();
-            Long orderId = resultSet.getLong("order_id");
-            order.setId(orderId);
-            for (Product product : order.getProducts()) {
-                PreparedStatement insertOrderProductsStatement = connection.prepareStatement(insertOrdersProducts);
-                insertOrderProductsStatement.setLong(1, orderId);
-                insertOrderProductsStatement.setLong(2, product.getId());
-                insertOrderProductsStatement.executeUpdate();
+            if (resultSet.next()) {
+//                Long orderId = resultSet.getLong("order_id");
+                Long orderId = resultSet.getLong(1);
+                order.setId(orderId);
+                for (Product product : order.getProducts()) {
+                    PreparedStatement insertOrderProductsStatement = connection.prepareStatement(insertOrdersProducts);
+                    insertOrderProductsStatement.setLong(1, orderId);
+                    insertOrderProductsStatement.setLong(2, product.getId());
+                    insertOrderProductsStatement.executeUpdate();
+                }
             }
         } catch (SQLException e) {
             throw new DataProcessingException("Creating order " + order
@@ -115,7 +121,10 @@ public class OrderDaoJdbcImpl implements OrderDao {
             PreparedStatement selectOrderProductsStatement = connection.prepareStatement(selectOrderProducts);
             selectOrderProductsStatement.setLong(1, id);
             ResultSet resultSet = selectOrderProductsStatement.executeQuery();
-            return Optional.of(retrieveOrderFromResultSet(resultSet));
+            if (resultSet.next()) {
+                return Optional.of(retrieveOrderFromResultSet(resultSet));
+            }
+            return Optional.empty();
         } catch (SQLException e) {
             throw new DataProcessingException("Getting order with id="
                     + id + " is failed", e);
@@ -138,7 +147,8 @@ public class OrderDaoJdbcImpl implements OrderDao {
             PreparedStatement selectOrdersStatement = connection.prepareStatement(selectOrders);
             ResultSet ordersResultSet = selectOrdersStatement.executeQuery();
             while (ordersResultSet.next()) {
-                Long orderId = ordersResultSet.getLong("order_id");
+//                Long orderId = ordersResultSet.getLong("order_id");
+                Long orderId = ordersResultSet.getLong(1);
                 PreparedStatement selectOrderProductsStatement = connection.prepareStatement(selectOrderProducts);
                 selectOrderProductsStatement.setLong(1, orderId);
                 ResultSet resultSet = selectOrderProductsStatement.executeQuery();
@@ -177,14 +187,14 @@ public class OrderDaoJdbcImpl implements OrderDao {
         Long orderId = resultSet.getLong("orders.order_id");
         Long userId = resultSet.getLong("orders.user_id");
         List<Product> productList = new ArrayList<>();
-        while (resultSet.next()) {
+        do {
             Long productId = resultSet.getLong("products.product_id");
             String productName = resultSet.getString("products.name");
             double productPrice = resultSet.getDouble("products.price");
             Product product = new Product(productName, productPrice);
             product.setId(productId);
             productList.add(product);
-        }
+        } while (resultSet.next());
         Order order = new Order(userId);
         order.setId(orderId);
         return order;

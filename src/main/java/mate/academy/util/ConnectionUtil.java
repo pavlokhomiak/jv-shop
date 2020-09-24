@@ -17,7 +17,7 @@ public class ConnectionUtil {
     public static Connection getConnection() {
         Properties dbProperties = new Properties();
         dbProperties.put("user", "root");
-        dbProperties.put("password", "1234");
+        dbProperties.put("password", "fragolino21023");
         String url = "jdbc:mysql://localhost:3306/internet_shop?serverTimezone=UTC";
 
         try {
