@@ -31,6 +31,7 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
             if (resultSet.next()) {
                 Long shoppingCartId = resultSet.getLong(1);
                 shoppingCart.setId(shoppingCartId);
+                insertShoppingCartsStatement.close();
                 insertShoppingCartsProducts(shoppingCart, connection);
                 return shoppingCart;
             }
@@ -51,6 +52,7 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
             updateShoppingCartStatement.setLong(1, shoppingCart.getUserId());
             updateShoppingCartStatement.setLong(2, shoppingCart.getId());
             if (updateShoppingCartStatement.executeUpdate() == 1) {
+                updateShoppingCartStatement.close();
                 deleteShoppingCartProduct(shoppingCart.getId(), connection);
                 insertShoppingCartsProducts(shoppingCart, connection);
                 return shoppingCart;
@@ -73,6 +75,7 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
             if (resultSet.next()) {
                 ShoppingCart shoppingCart = new ShoppingCart(resultSet.getLong(2));
                 shoppingCart.setId(id);
+                selectShoppingCartsStatement.close();
                 shoppingCart.setProducts(getProducts(id, connection));
                 return Optional.of(shoppingCart);
             }
@@ -95,6 +98,7 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
                 Long cartId = resultSet.getLong(1);
                 ShoppingCart shoppingCart = new ShoppingCart(userId);
                 shoppingCart.setId(cartId);
+                selectShoppingCartsStatement.close();
                 shoppingCart.setProducts(getProducts(cartId, connection));
                 return Optional.of(shoppingCart);
             }
@@ -118,8 +122,11 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
                 Long userId = cartsResultSet.getLong(2);
                 ShoppingCart shoppingCart = new ShoppingCart(userId);
                 shoppingCart.setId(cartId);
-                shoppingCart.setProducts(getProducts(cartId, connection));
                 shoppingCartList.add(shoppingCart);
+            }
+            selectShoppingCartsStatement.close();
+            for (ShoppingCart cart : shoppingCartList) {
+                cart.setProducts(getProducts(cart.getId(), connection));
             }
             return shoppingCartList;
         } catch (SQLException e) {
@@ -138,6 +145,7 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
             if (updateShoppingCartsStatement.executeUpdate() == 0) {
                 return false;
             }
+            updateShoppingCartsStatement.close();
             deleteShoppingCartProduct(id, connection);
         } catch (SQLException e) {
             throw new DataProcessingException("Deleting shopping cart with id="
@@ -190,7 +198,9 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
         try (PreparedStatement insertStatement
                      = connection.prepareStatement(insertShoppingCartsProducts)) {
             for (Product product : shoppingCart.getProducts()) {
-                setProductId(product, connection);
+                if (product.getId() == null) {
+                    setProductId(product, connection);
+                }
                 insertStatement.setLong(1, shoppingCart.getId());
                 insertStatement.setLong(2, product.getId());
                 insertStatement.executeUpdate();

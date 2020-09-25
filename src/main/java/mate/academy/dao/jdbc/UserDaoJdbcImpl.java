@@ -34,6 +34,7 @@ public class UserDaoJdbcImpl implements UserDao {
             if (resultSet.next()) {
                 Long userId = resultSet.getLong(1);
                 user.setId(userId);
+                insertUserStatement.close();
                 insertUserRoles(user, connection);
             }
         } catch (SQLException e) {
@@ -55,6 +56,7 @@ public class UserDaoJdbcImpl implements UserDao {
             updateUserStatement.setString(3, user.getPassword());
             updateUserStatement.setLong(4, user.getId());
             updateUserStatement.executeUpdate();
+            updateUserStatement.close();
             updateUsersRoles(user, connection);
         } catch (SQLException e) {
             throw new DataProcessingException("Updating user " + user
@@ -78,6 +80,7 @@ public class UserDaoJdbcImpl implements UserDao {
                 String password = resultSet.getString("password");
                 User user = new User(name, login, password);
                 user.setId(id);
+                selectUsersStatement.close();
                 user.setRoles(getUserRoles(id, connection));
                 return Optional.of(user);
             }
@@ -102,6 +105,7 @@ public class UserDaoJdbcImpl implements UserDao {
                 String password = resultSet.getString("password");
                 User user = new User(name, login, password);
                 user.setId(userId);
+                selectUserStatement.close();
                 user.setRoles(getUserRoles(userId, connection));
                 return Optional.of(user);
             }
@@ -127,8 +131,11 @@ public class UserDaoJdbcImpl implements UserDao {
                 String password = resultSet.getString("password");
                 User user = new User(name, login, password);
                 user.setId(userId);
-                user.setRoles(getUserRoles(userId, connection));
                 userList.add(user);
+            }
+            selectUsersStatement.close();
+            for (User user : userList) {
+                user.setRoles(getUserRoles(user.getId(), connection));
             }
             return userList;
         } catch (SQLException e) {
@@ -142,12 +149,10 @@ public class UserDaoJdbcImpl implements UserDao {
         try (Connection connection = ConnectionUtil.getConnection();
                 PreparedStatement updateUsersStatement
                         = connection.prepareStatement(updateUsers)) {
-
             updateUsersStatement.setLong(1, id);
             if (updateUsersStatement.executeUpdate() == 1) {
                 return false;
             }
-            deleteUsersRoles(id, connection);
         } catch (SQLException e) {
             throw new DataProcessingException("Deleting user with id="
                     + id + " is failed", e);
@@ -177,7 +182,6 @@ public class UserDaoJdbcImpl implements UserDao {
                      = connection.prepareStatement(selectRoleId)) {
             selectRoleIdStatement.setLong(1, userId);
             ResultSet resultSet = selectRoleIdStatement.executeQuery();
-
             while (resultSet.next()) {
                 Long roleId = resultSet.getLong(1);
                 String roleName = resultSet.getString(2);
@@ -199,6 +203,7 @@ public class UserDaoJdbcImpl implements UserDao {
                 insertStatement.setLong(1, user.getId());
                 insertStatement.setString(2, role.getRoleName().name());
                 insertStatement.executeUpdate();
+                insertStatement.close();
                 getRoleId(role, connection);
             }
         }
@@ -212,16 +217,6 @@ public class UserDaoJdbcImpl implements UserDao {
             deleteUsersRolesStatement.setLong(1, user.getId());
             deleteUsersRolesStatement.executeUpdate();
             insertUserRoles(user, connection);
-        }
-    }
-
-    private void deleteUsersRoles(Long userId, Connection connection)
-            throws SQLException {
-        String deleteUsersRoles = "DELETE FROM users_roles WHERE user_id = ?;";
-        try (PreparedStatement deleteUsersRolesStatement
-                     = connection.prepareStatement(deleteUsersRoles)) {
-            deleteUsersRolesStatement.setLong(1, userId);
-            deleteUsersRolesStatement.executeUpdate();
         }
     }
 }
