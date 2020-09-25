@@ -114,9 +114,10 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
             ResultSet cartsResultSet = selectShoppingCartsStatement.executeQuery();
             List<ShoppingCart> shoppingCartList = new ArrayList<>();
             while (cartsResultSet.next()) {
-                Long cartId = cartsResultSet.getLong(2);
-                ShoppingCart shoppingCart = new ShoppingCart(cartId);
-                shoppingCart.setId(cartsResultSet.getLong(1));
+                Long cartId = cartsResultSet.getLong(1);
+                Long userId = cartsResultSet.getLong(2);
+                ShoppingCart shoppingCart = new ShoppingCart(userId);
+                shoppingCart.setId(cartId);
                 shoppingCart.setProducts(getProducts(cartId, connection));
                 shoppingCartList.add(shoppingCart);
             }
