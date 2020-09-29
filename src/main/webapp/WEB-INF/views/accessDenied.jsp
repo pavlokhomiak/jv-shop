@@ -4,6 +4,7 @@
     <title>Access denied</title>
 </head>
 <body>
-<h1>Sorry! Access to this page is denied</h1>
+<%@include file="menu.jsp"%>
+<h1 style="color: red; font-size: xx-large; align-content: center">Sorry! Access to this page is denied</h1>
 </body>
 </html>

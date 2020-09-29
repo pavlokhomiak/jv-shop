@@ -2,31 +2,58 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <style>
+        tr {
+            background: #ccc;
+            text-align: center;
+        }
+        btn-dark {
+            background-color: #515763;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
     <title>Orders</title>
 </head>
 <body>
-<h1>All orders</h1>
 
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>User ID</th>
-    </tr>
-    <c:forEach var = "order" items = "${orders}">
-        <tr>
-            <td>
-                <c:out value = "${order.id}"/>
-            </td>
-            <td>
-                <c:out value = "${order.userId}"/>
-            </td>
-            <td>
-                <a href="${pageContext.request.contextPath}/order/remove?id=${order.id}">Delete</a>
-            </td>
-        </tr>
-    </c:forEach>
-</table>
+<%@include file="menu.jsp"%>
 
-<br/><a href="${pageContext.request.contextPath}/">To main</a>
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div style="text-align: center">
+            <h3 id="all-orders" style="color: white">User orders</h3>
+            <br/>
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">User ID</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var = "order" items = "${orders}">
+                    <tr>
+                        <th scope="row">
+                            <c:out value = "${order.id}"/>
+                        </th>
+                        <th scope="row">
+                            <c:out value = "${order.userId}"/>
+                        </th>
+                        <th>
+                            <a href="${pageContext.request.contextPath}/order/remove?id=${order.id}" class="btn btn-dark">Delete</a>
+                        </th>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+            <a href="${pageContext.request.contextPath}/" class="btn btn-dark">Home</a>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

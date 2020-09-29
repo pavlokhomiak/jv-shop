@@ -23,9 +23,9 @@
 <div class="container">
     <div class="row justify-content-center align-items-center">
         <div style="text-align: center">
-            <h3 id="all-orders" style="color: white">User orders:</h3>
-            <p></p>
-            <table class="table table-bordered table-hover" aria-describedby="all-products">
+            <h3 id="all-orders" style="color: white">User orders</h3>
+            <br/>
+            <table class="table">
                 <thead class="thead-dark">
                 <tr>
                     <th scope="col">ID</th>
