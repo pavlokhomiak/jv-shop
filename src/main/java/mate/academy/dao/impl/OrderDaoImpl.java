@@ -5,11 +5,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import mate.academy.dao.OrderDao;
-import mate.academy.lb.Dao;
 import mate.academy.model.Order;
 import mate.academy.storage.Storage;
 
-@Dao
 public class OrderDaoImpl implements OrderDao {
 
     @Override
