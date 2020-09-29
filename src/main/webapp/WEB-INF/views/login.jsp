@@ -1,20 +1,39 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <style>
+        label {
+            cursor: pointer;
+            color: white;
+            display: block;
+            padding: 10px;
+            margin: 10px;
+            font-weight: bold;
+            font-size: large;
+        }
+    </style>
     <title>Login</title>
 </head>
 <body>
-<h1>Login page</h1>
+<%@include file="menu.jsp"%>
 
-<h4 style="color: red">${message}</h4>
+<div class="container" align="center">
+    <h2 style="color:white">Login user</h2>
+    <form method="post" action="${pageContext.request.contextPath}/login">
+        <h4 style="color: red">${message}</h4>
+        <div class="form-group">
+            <label>Login</label>
+            <input class="form-control" type="text" name="log" style="text-align: center; width: 500px" required>
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="pas" class="form-control" style="text-align: center; width: 500px" required>
+        </div>
 
-<form action="${pageContext.request.contextPath}/login" method="post">
-    <br/>Login:<input type="text" name="log">
-    <br/>Password:<input type="password" name="pas">
-
-    <br/><button type="submit">Login</button>
-    <br/><a href="${pageContext.request.contextPath}/">To main</a>
-</form>
+        <button style="color:white" type="submit"  class="btn btn-dark">Submit</button>
+    </form>
+</div>
 
 </body>
 </html>
