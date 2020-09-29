@@ -7,6 +7,7 @@ import mate.academy.lb.Inject;
 import mate.academy.lb.Service;
 import mate.academy.model.User;
 import mate.academy.service.UserService;
+import mate.academy.util.HashUtil;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -15,6 +16,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User user) {
+        byte[] salt = HashUtil.getSalt();
+        String hashedPassword = HashUtil.hashPassword(user.getPassword(), salt);
+        user.setPassword(hashedPassword);
+        user.setSalt(salt);
         return userDao.create(user);
     }
 

@@ -22,13 +22,14 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public User create(User user) {
-        String insertUser = "INSERT INTO users (name, login, password) VALUES (?, ?, ?);";
+        String insertUser = "INSERT INTO users (name, login, password, salt) VALUES (?, ?, ?, ?);";
         try (Connection connection = ConnectionUtil.getConnection();
                 PreparedStatement insertUserStatement = connection
                         .prepareStatement(insertUser, Statement.RETURN_GENERATED_KEYS)) {
             insertUserStatement.setString(1, user.getName());
             insertUserStatement.setString(2, user.getLogin());
             insertUserStatement.setString(3, user.getPassword());
+            insertUserStatement.setBytes(4, user.getSalt());
             insertUserStatement.executeUpdate();
             ResultSet resultSet = insertUserStatement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -46,7 +47,7 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public User update(User user) {
-        String updateUser = "UPDATE users SET name = ?, login = ?, password = ? "
+        String updateUser = "UPDATE users SET name = ?, login = ?, password = ? salt = ?"
                 + "WHERE user_id = ? AND deleted = false;";
         try (Connection connection = ConnectionUtil.getConnection();
                 PreparedStatement updateUserStatement
@@ -54,6 +55,7 @@ public class UserDaoJdbcImpl implements UserDao {
             updateUserStatement.setString(1, user.getName());
             updateUserStatement.setString(2, user.getLogin());
             updateUserStatement.setString(3, user.getPassword());
+            updateUserStatement.setBytes(4, user.getSalt());
             updateUserStatement.setLong(4, user.getId());
             updateUserStatement.executeUpdate();
             updateUserStatement.close();
@@ -78,8 +80,10 @@ public class UserDaoJdbcImpl implements UserDao {
                 String name = resultSet.getString("name");
                 String login = resultSet.getString("login");
                 String password = resultSet.getString("password");
+                byte[] salt = resultSet.getBytes("salt");
                 User user = new User(name, login, password);
                 user.setId(id);
+                user.setSalt(salt);
                 selectUsersStatement.close();
                 user.setRoles(getUserRoles(id, connection));
                 return Optional.of(user);
@@ -103,8 +107,10 @@ public class UserDaoJdbcImpl implements UserDao {
                 Long userId = resultSet.getLong("user_id");
                 String name = resultSet.getString("name");
                 String password = resultSet.getString("password");
+                byte[] salt = resultSet.getBytes("salt");
                 User user = new User(name, login, password);
                 user.setId(userId);
+                user.setSalt(salt);
                 selectUserStatement.close();
                 user.setRoles(getUserRoles(userId, connection));
                 return Optional.of(user);
@@ -129,8 +135,10 @@ public class UserDaoJdbcImpl implements UserDao {
                 String name = resultSet.getString("name");
                 String login = resultSet.getString("login");
                 String password = resultSet.getString("password");
+                byte[] salt = resultSet.getBytes("salt");
                 User user = new User(name, login, password);
                 user.setId(userId);
+                user.setSalt(salt);
                 userList.add(user);
             }
             selectUsersStatement.close();

@@ -134,5 +134,5 @@ CREATE TABLE `internet_shop`.`users_roles` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-INSERT INTO users_roles (user_id, role_id) VALUES (1, 2);
-
+ALTER TABLE `internet_shop`.`users`
+ADD COLUMN `salt` VARBINARY(256) NOT NULL AFTER `password`;
