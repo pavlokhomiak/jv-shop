@@ -154,19 +154,6 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
         return true;
     }
 
-    private void setProductId(Product product, Connection connection)
-            throws SQLException {
-        String selectProducts = "SELECT product_id FROM products "
-                + "WHERE product_name = ? AND deleted = false;";
-        try (PreparedStatement selectProductsStatement
-                     = connection.prepareStatement(selectProducts)) {
-            selectProductsStatement.setString(1, product.getName());
-            ResultSet resultSet = selectProductsStatement.executeQuery();
-            resultSet.next();
-            product.setId(resultSet.getLong(1));
-        }
-    }
-
     private List<Product> getProducts(Long cartId, Connection connection)
             throws SQLException {
         String selectProduct = "SELECT products.product_id, product_name, product_price "
@@ -198,9 +185,6 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
         try (PreparedStatement insertStatement
                      = connection.prepareStatement(insertShoppingCartsProducts)) {
             for (Product product : shoppingCart.getProducts()) {
-                if (product.getId() == null) {
-                    setProductId(product, connection);
-                }
                 insertStatement.setLong(1, shoppingCart.getId());
                 insertStatement.setLong(2, product.getId());
                 insertStatement.executeUpdate();
