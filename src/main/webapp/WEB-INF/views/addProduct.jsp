@@ -1,19 +1,39 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <style>
+        label {
+            cursor: pointer;
+            color: white;
+            display: block;
+            padding: 10px;
+            margin: 10px;
+            font-weight: bold;
+            font-size: large;
+        }
+    </style>
     <title>Add product</title>
 </head>
 <body>
-<h1>Provide product details</h1>
+<%@include file="menu.jsp"%>
 
-<h4 style="color: red">${message}</h4>
+<div class="container" align="center">
+    <h2 style="color:white">Provide product details</h2>
+    <form method="post" action="${pageContext.request.contextPath}/products/add">
+        <h4 style="color: red">${message}</h4>
+        <div class="form-group">
+            <label>Name</label>
+            <input class="form-control" type="text" name="name" style="text-align: center; width: 500px" required>
+        </div>
+        <div class="form-group">
+            <label>Price</label>
+            <input type="number" name="price" class="form-control" style="text-align: center; width: 500px" required>
+        </div>
 
-<form method="post" action="${pageContext.request.contextPath}/products/add">
-    Name: <input type="text" name="name" required placeholder="Product name">
-    <br/>Price: <input type="number" name="price" required placeholder="Product price">
-
-    <br/><button type="submit" >Add product</button>
-    <br/><a href="${pageContext.request.contextPath}/">To main</a>
-</form>
+        <button style="color:white" type="submit"  class="btn btn-dark">Add product</button>
+        <a href="${pageContext.request.contextPath}/" class="btn btn-dark">Home</a>
+    </form>
+</div>
 </body>
 </html>

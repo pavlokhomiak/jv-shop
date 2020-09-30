@@ -15,6 +15,7 @@ CREATE TABLE `internet_shop`.`users` (
   `name` VARCHAR(256) NOT NULL,
   `login` VARCHAR(256) NOT NULL,
   `password` VARCHAR(256) NOT NULL,
+  `salt` VARBINARY(256) NOT NULL,
   `deleted` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_id`),
   UNIQUE INDEX `login_UNIQUE` (`login` ASC) VISIBLE)
@@ -133,6 +134,3 @@ CREATE TABLE `internet_shop`.`users_roles` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
-
-INSERT INTO users_roles (user_id, role_id) VALUES (1, 2);
-

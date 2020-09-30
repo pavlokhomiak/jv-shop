@@ -9,6 +9,7 @@ public class User {
     private String name;
     private String login;
     private String password;
+    private byte[] salt;
     private Set<Role> roles;
 
     public User(String name, String login, String password) {

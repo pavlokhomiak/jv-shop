@@ -1,21 +1,49 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <style>
+        label {
+            cursor: pointer;
+            color: white;
+            display: block;
+            padding: 10px;
+            margin: 10px;
+            font-weight: bold;
+            font-size: large;
+        }
+    </style>
     <title>Registration</title>
 </head>
 <body>
-<h1>Provide user details</h1>
+<%@include file="menu.jsp"%>
+<div class="container" align="center">
+    <h2 style="color:white">Provide user details</h2>
+    <form method="post" action="${pageContext.request.contextPath}/registration">
+        <h4 style="color: red">${message}</h4>
+        <div class="form-group">
+            <label>Name</label>
+            <input class="form-control" type="text" name="name" style="text-align: center; width: 500px" required>
+        </div>
+        <div class="form-group">
+            <label>Login</label>
+            <input type="text" name="log" class="form-control" style="text-align: center; width: 500px" required>
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="pas" class="form-control" style="text-align: center; width: 500px" required>
+        </div>
+        <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" name="pas-rep" class="form-control" style="text-align: center; width: 500px" required>
+        </div>
+        <button style="color:white" type="submit"  class="btn btn-dark">Submit</button>
+    </form>
+</div>
 
-<h4 style="color: red">${message}</h4>
 
-<form method="post" action="${pageContext.request.contextPath}/registration">
-    Name: <input type="text" name="name" required placeholder="User name">
-    <br/>Login: <input type="text" name="log" required placeholder="User login">
-    <br/>Password: <input type="password" name="pas" required placeholder="User password">
-    <br/>Repeat Password: <input type="password" name="pas-rep" required placeholder="Repeat user password">
+<form>
 
-    <br/><button type="submit">Register</button>
-    <br/><a href="${pageContext.request.contextPath}/">To main</a>
 </form>
 
 </body>
